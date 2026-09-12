@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Media Project Planner</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f7;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .intro {
+            text-align: center;
+        }
+
+        .project-box {
+            background-color: #eef2f5;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Interactive Digital Media Project Planner</h1>
+
+    <p class="intro">
+        Use this planner to estimate the time and cost of a digital media project.
+    </p>
+
+    <div class="project-box">
+
+        <label for="projectType">Choose a Project:</label>
+
+        <select id="projectType">
+            <option value="Website">Website</option>
+            <option value="Magazine">Digital Magazine</option>
+            <option value="Video">Promotional Video</option>
+            <option value="Branding">Branding Package</option>
+        </select>
+
+
+        <label for="hours">Estimated Hours:</label>
+
+        <input type="number" id="hours" placeholder="Example: 10">
+
+
+        <label for="rate">Hourly Rate:</label>
+
+        <input type="number" id="rate" placeholder="Example: 35">
+
+
+        <button id="calculateButton">
+            Calculate Project
+        </button>
+
+        <button id="designerButton">
+            Meet the Designer
+        </button>
+
+    </div>
+
+
+    <div id="result">
+        Your project information will appear here.
+    </div>
+
+</div>
+
+
+<script>
+    
+    // OBJECT WITH MULTIPLE PROPERTIES
+    
+    const designer = {
+        name: "Jennifer Salinas",
+        specialty: "Digital Media Design",
+        experience: 3,
+        hourlyRate: 35,
+
+        // OBJECT METHOD
+        introduce: function() {
+            return "Hi! My name is " + this.name +
+                   ". I specialize in " + this.specialty +
+                   " and have " + this.experience +
+                   " years of experience.";
+        }
+    };
+
+
+    
+    // FUNCTION 1
+    // Passes parameters IN
+    // Returns a value OUT
+    
+    function calculateProjectTime(hours) {
+
+        if (hours <= 0) {
+            return "Please enter a number greater than zero.";
+        }
+
+        return hours + " hours";
+    }
+
+
+    // FUNCTION 2
+    // Passes multiple parameters IN
+    // Returns a calculated value OUT
+
+    function calculateBudget(hours, rate) {
+
+        let total = hours * rate;
+
+        return total;
+    }
+
+    
+    // FUNCTION 3
+    // Uses information passed into it    
+
+    function showProject(project, hours, cost) {
+
+        return "Project: " + project +
+               "<br>Estimated Time: " + hours +
+               "<br>Estimated Cost: $" + cost.toFixed(2);
+    }
+
+    
+    // EVENT
+    // Button click invokes multiple functions    
+
+    document.getElementById("calculateButton").addEventListener("click", function() {
+
+        let project = document.getElementById("projectType").value;
+
+        let hours = Number(document.getElementById("hours").value);
+
+        let rate = Number(document.getElementById("rate").value);
+
+
+        if (hours <= 0 || rate <= 0) {
+
+            document.getElementById("result").innerHTML =
+                "Please enter valid numbers for both hours and hourly rate.";
+
+            return;
+        }
+
+
+        // INVOKE FUNCTION 1
+
+        let time = calculateProjectTime(hours);
+
+
+        // INVOKE FUNCTION 2
+
+        let cost = calculateBudget(hours, rate);
+
+
+        // INVOKE FUNCTION 3
+
+        let projectSummary = showProject(project, time, cost);
+
+
+        document.getElementById("result").innerHTML =
+            "<h2>Project Estimate</h2>" +
+            projectSummary;
+
+    });
+
+    
+    // SECOND EVENT
+    // Invokes the OBJECT METHOD    
+
+    document.getElementById("designerButton").addEventListener("click", function() {
+
+        document.getElementById("result").innerHTML =
+            "<h2>About the Designer</h2>" +
+            designer.introduce() +
+            "<br><br>Standard hourly rate: $" +
+            designer.hourlyRate;
+
+    });
+
+</script>
+
+</body>
+</html>
